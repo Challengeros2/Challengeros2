@@ -1,0 +1,61 @@
+namespace NiechZadziala
+{
+    public partial class Form1 : Form
+    {
+        TextBox inputBox;
+        Button sortButton;
+        Label resultLabel;
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            inputBox = new TextBox
+            {
+                Top = 20,
+                Left = 20,
+                Width = 300
+            };
+            this.Controls.Add(inputBox);
+
+            sortButton = new Button
+            {
+                Text = "Sortuj",
+                Top = 60,
+                Left = 20
+            };
+            sortButton.Click += SortButton_Click;
+            this.Controls.Add(sortButton);
+
+            resultLabel = new Label
+            {
+                Top = 100,
+                Left = 20,
+                Width = 300
+            };
+            this.Controls.Add(resultLabel);
+        }
+
+        private void SortButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int[] numbers = inputBox.Text
+                    .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse)
+                    .ToArray();
+
+                for (int i = 0; i < numbers.Length - 1; i++)
+                    for (int j = 0; j < numbers.Length - i - 1; j++)
+                        if (numbers[j] > numbers[j + 1])
+                            (numbers[j], numbers[j + 1]) = (numbers[j + 1], numbers[j]);
+
+                resultLabel.Text = "Wynik: " + string.Join(" ", numbers);
+            }
+            catch
+            {
+                resultLabel.Text = "Błąd: wpisz liczby oddzielone spacją.";
+            }
+        }
+    }
+}
