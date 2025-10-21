@@ -1,0 +1,16 @@
+D:\180646\AiSD2110\bin\Debug\net8.0-windows\AiSD2110.exe
+D:\180646\AiSD2110\bin\Debug\net8.0-windows\AiSD2110.deps.json
+D:\180646\AiSD2110\bin\Debug\net8.0-windows\AiSD2110.runtimeconfig.json
+D:\180646\AiSD2110\bin\Debug\net8.0-windows\AiSD2110.dll
+D:\180646\AiSD2110\bin\Debug\net8.0-windows\AiSD2110.pdb
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\AiSD2110.Form1.resources
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\AiSD2110.csproj.GenerateResource.cache
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\AiSD2110.GeneratedMSBuildEditorConfig.editorconfig
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\AiSD2110.AssemblyInfoInputs.cache
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\AiSD2110.AssemblyInfo.cs
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\AiSD2110.csproj.CoreCompileInputs.cache
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\AiSD2110.dll
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\refint\AiSD2110.dll
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\AiSD2110.pdb
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\AiSD2110.genruntimeconfig.cache
+D:\180646\AiSD2110\obj\Debug\net8.0-windows\ref\AiSD2110.dll
