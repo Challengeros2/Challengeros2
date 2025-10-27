@@ -1,0 +1,306 @@
+package Zestaw2Ponownie;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.HashSet;
+
+// Programowanie obiektowe
+// ----------------------------------------
+// Operacje na listach tablicowych.
+// ----------------------------------------
+// mgr inż. Adam Zalewski
+// University of Warmia and Mazury in Olsztyn
+// Faculty of Mathematics and Computer Science
+// Institute of Computer Science
+// Chair of Applied Computer Science and Mathematical Modeling
+
+public class Zestawik3 {
+
+    // Zadanie 0.
+    // Napisz funkcję główną (main).
+    public static void main(String[] args)
+    {
+        ArrayList<Integer> tab1 = new ArrayList<Integer>();
+        ArrayList<Integer> tab2 = new ArrayList<Integer>();
+
+        String napis = "konstantynopol";
+        ArrayList<Character> resultStr = toArrayList(napis);
+       // System.out.println("Po sortowaniu to: " + resultStr);
+
+        int liczba = 213742069;
+        ArrayList<Integer> resultInt = toArrayList(liczba);
+        //System.out.println("Po sortowaniu to: " + resultInt);
+
+        //System.out.println(append(tab1, tab2));
+        //System.out.println(merge(tab1, tab2));
+        //System.out.println(mergeSorted(tab1, tab2));
+
+        //System.out.println("Ilość wystąpień 'a' w liście znaków: " + countChar(resultStr, 'a'));
+        //System.out.println("Ilość wystąpień 'z' w liście znaków: " + countChar(resultStr, 'z'));
+
+        //System.out.println("Ilość wystąpień cyfry 3 w liście cyfr: " + countDigit(resultInt, 3));
+        //System.out.println("Ilość wystąpień cyfry 7 w liście cyfr: " + countDigit(resultInt, 7));
+
+        //System.out.println("Wynik dla listy znaków: " + countCharArrayList(resultStr));
+        //System.out.println("Wynik dla listy cyfr: " + countIntArrayList(resultInt));
+
+        //System.out.println("Wynik dla listy znaków: " + ToUniqueArrayListt(resultStr));
+        //System.out.println("Wynik dla listy cyfr: " + ToUniqueArrayList(resultInt));
+    }
+
+    // Zadanie 1.
+    // Napisz funkcję
+    //		append(ArrayList<Integer> tab1, ArrayList<Integer> tab2),
+    // która tworzy nową listę tablicową poprzez
+    // dołączenie drugiej listy tablicowej do pierwszej.
+
+    static ArrayList<Integer> append(ArrayList<Integer> tab1, ArrayList<Integer> tab2){
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        for(int i=0;i<tab1.size();i++){
+            result.add(tab1.get(i));
+        }
+        for(int element : tab2){
+            result.add(element);
+        }
+        return result;
+    }
+
+    // Zadanie 2.
+    // Napisz funkcję
+    //		merge(ArrayList<Integer> tab1, ArrayList<Integer> tab2),
+    // która tworzy nową listę tablicową poprzez
+    // dołączenie drugiej listy tablicowej do pierwszej w taki sposób,
+    // że elementy wstawiane są na przemian. W przypadku, gdy skończą się
+    // elementy jednej listy to do wyniku należy dołączyć pozostałe elementy.
+
+    static ArrayList<Integer> merge(ArrayList<Integer> tab1, ArrayList<Integer> tab2){
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        int i = 0;
+        int j = 0;
+        while(i < tab1.size() && j < tab2.size()){
+            result.add(tab1.get(i));
+            result.add(tab2.get(j));
+            i++; j++;
+        }
+        while(i < tab1.size()){
+            result.add(tab1.get(i));
+            i++;
+        }
+        while(j < tab2.size()){
+            result.add(tab1.get(j));
+            j++;
+        }
+        return result;
+    }
+
+    // Zadanie 3.
+    // Napisz funkcję
+    //		mergeSorted(ArrayList<Integer> tab1, ArrayList<Integer> tab2),
+    // która tworzy nową listę tablicową poprzez
+    // dołączenie drugiej listy tablicowej do pierwszej w taki sposób,
+    // że elementy wstawiane są w porządku rosnącym.
+
+    static ArrayList<Integer> mergeSorted(ArrayList<Integer> tab1, ArrayList<Integer> tab2){
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        int i = 0;
+        int j = 0;
+        while(i < tab1.size() && j < tab2.size()){
+            if(tab1.get(i) < tab2.get(j)){
+                result.add(tab1.get(i));
+                i++;
+            }
+            else{
+                result.add(tab2.get(j));
+                j++;
+            }
+        }
+        while(i < tab1.size()){
+            result.add(tab1.get(i));
+            i++;
+        }
+        while(j < tab2.size()){
+            result.add(tab1.get(j));
+            j++;
+        }
+        return result;
+    }
+
+    // Zadanie 4.
+    // Napisz funkcje
+    //		toArrayList(String napis)
+    //		toArrayList(int liczba),
+    // które z napisu/liczby tworzą listę tablicową posortowanych rosnąco znaków/cyfr.
+
+    public static ArrayList<Character> toArrayList(String napis) {
+        ArrayList<Character> list = new ArrayList<>();
+        for (char c : napis.toCharArray()) {
+            list.add(c);
+        }
+        Collections.sort(list);
+        return list;
+    }
+
+    public static ArrayList<Integer> toArrayList(int liczba) {
+        ArrayList<Integer> list = new ArrayList<>();
+        String strLiczba = Integer.toString(liczba);
+        for (char c : strLiczba.toCharArray()) {
+            list.add(Character.getNumericValue(c));
+        }
+        Collections.sort(list);
+        return list;
+    }
+
+    // Zadanie 5.
+    // Napisz funkcje
+    //		checkChar(ArrayList<String> tab, char znak)
+    // 		checkDigit(ArrayList<Integer> tab, int cyfra),
+    // które sprawdzają czy podany znak/cyfra jest w liście
+    // tablicowej z zadania 4 i zwracają true lub false.
+
+    public static ArrayList<Character> checkChar(String napis) {
+        ArrayList<Character> list = new ArrayList<>();
+        for (char c : napis.toCharArray()) {
+            list.add(c);
+        }
+        list.sort(null);
+        return list;
+    }
+
+    public static ArrayList<Integer> checkDigit(int liczba) {
+        ArrayList<Integer> list = new ArrayList<>();
+        String strLiczba = Integer.toString(liczba);
+        for (char c : strLiczba.toCharArray()) {
+            list.add(Character.getNumericValue(c));
+        }
+        list.sort(null);
+        return list;
+    }
+
+    public static boolean checkChar(ArrayList<Character> tab, char znak) {
+        return tab.contains(znak);
+    }
+
+    public static boolean checkDigit(ArrayList<Integer> tab, int cyfra) {
+        return tab.contains(cyfra);
+    }
+
+    // Zadanie 6.
+    // Napisz funkcje
+    //		countChar(ArrayList<String> tab, char znak)
+    // 		countDigit(ArrayList<Integer> tab, int cyfra),
+    // które zliczają występowanie podanego znaku/cyfry
+    // w liście tablicowej z zadania 4 i zwracają ilość zliczonych elementów.
+
+    public static ArrayList<Character> countChar(String napis) {
+        ArrayList<Character> list = new ArrayList<>();
+        for (char c : napis.toCharArray()) {
+            list.add(c);
+        }
+        list.sort(null);
+        return list;
+    }
+
+    public static ArrayList<Integer> countList(int liczba) {
+        ArrayList<Integer> list = new ArrayList<>();
+        String strLiczba = Integer.toString(liczba);
+        for (char c : strLiczba.toCharArray()) {
+            list.add(Character.getNumericValue(c));
+        }
+        list.sort(null);
+        return list;
+    }
+
+    public static int countChar(ArrayList<Character> tab, char znak) {
+        int count = 0;
+        for (char c : tab) {
+            if (c == znak) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static int countDigit(ArrayList<Integer> tab, int cyfra) {
+        int count = 0;
+        for (int num : tab) {
+            if (num == cyfra) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Zadanie 7.
+    // Napisz funkcje
+    //		uniqueArrayList(ArrayList<String> tab)
+    // 		uniqueArrayList(ArrayList<Integer> tab),
+    // które tworzą dwuwymiarową listę tablicową unikalnych wartości,
+    // a każda z wartości ma przyporządkowane 0.
+    // Przykład: tab=[1,4,5,5,7,7] wynik -> [[1,0], [4,0], [5,0], [7,0]]
+
+    public static ArrayList<ArrayList<Object>> ToUniqueArrayListt(ArrayList<Character> tab) {
+        HashSet<Character> uniqueSet = new HashSet<>(tab);
+        ArrayList<ArrayList<Object>> result = new ArrayList<>();
+        for (Character c : uniqueSet) {
+            ArrayList<Object> pair = new ArrayList<>();
+            pair.add(c);
+            pair.add(0);
+            result.add(pair);
+        }
+        return result;
+    }
+
+    public static ArrayList<ArrayList<Object>> ToUniqueArrayList(ArrayList<Integer> tab) {
+        HashSet<Integer> uniqueSet = new HashSet<>(tab);
+
+        ArrayList<ArrayList<Object>> result = new ArrayList<>();
+        for (Integer i : uniqueSet) {
+            ArrayList<Object> pair = new ArrayList<>();
+            pair.add(i);
+            pair.add(0);
+            result.add(pair);
+        }
+        return result;
+    }
+
+    // Zadanie 8.
+    // Napisz funkcje
+    // 		countArrayList(ArrayList<String> tab)
+    // 		countArrayList(ArrayList<Integer> tab),
+    // które tworzą dwuwymiarową listę tablicową, w której
+    // zliczana jest ilość występujących cyfry/znaków z tablic z zadania 4
+    // Przykład: tab=[1,4,5,5,7,7] wynik -> [[1,1], [4,1], [5,2], [7,2]]
+
+    public static ArrayList<ArrayList<Object>> countCharArrayList(ArrayList<Character> tab) {
+        Map<Character, Integer> countMap = new HashMap<>();
+        for (char c : tab) {
+            countMap.put(c, countMap.getOrDefault(c, 0) + 1);
+        }
+
+        ArrayList<ArrayList<Object>> result = new ArrayList<>();
+        for (Map.Entry<Character, Integer> entry : countMap.entrySet()) {
+            ArrayList<Object> pair = new ArrayList<>();
+            pair.add(entry.getKey());
+            pair.add(entry.getValue());
+            result.add(pair);
+        }
+        return result;
+    }
+
+    public static ArrayList<ArrayList<Object>> countIntArrayList(ArrayList<Integer> tab) {
+        Map<Integer, Integer> countMap = new HashMap<>();
+        for (int num : tab) {
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+        }
+
+        ArrayList<ArrayList<Object>> result = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {
+            ArrayList<Object> pair = new ArrayList<>();
+            pair.add(entry.getKey());
+            pair.add(entry.getValue());
+            result.add(pair);
+        }
+        return result;
+    }
+}
