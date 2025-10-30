@@ -1,0 +1,56 @@
+package Zestaw4;
+
+public class Produkt {
+    String nazwa;
+    double cena;
+    int iloscNaMagazynie;
+
+    void wyswietlInformacje(){
+        System.out.println("Mamy na sprzedaz taki produkt jak " + nazwa + " ktory kosztuje " + cena + " i mamy tego " + iloscNaMagazynie + " sztuk.");
+    }
+
+    void dodajDoMagazynu(){
+        iloscNaMagazynie = iloscNaMagazynie + 1;
+    }
+
+    void usunZMagazynu(){
+        if(iloscNaMagazynie == 0){
+            System.out.println("Niestety juz nic nie usuniesz bo jest zero");
+        }
+        else{
+            iloscNaMagazynie = iloscNaMagazynie - 1;
+        }
+    }
+}
+
+
+
+
+package Zestaw4;
+
+public class Zestaw4a {
+    public static void main(String[] args) {
+        Produkt mleko = new Produkt();
+        mleko.nazwa = "Mleczna Dolina";
+        mleko.cena = 4.99;
+        mleko.iloscNaMagazynie = 3;
+
+        Produkt woda = new Produkt();
+        woda.nazwa = "Jurajska";
+        woda.cena = 2.99;
+        woda.iloscNaMagazynie = 7;
+
+        Produkt energetyk = new Produkt();
+        energetyk.nazwa = "Red Bull";
+        energetyk.cena = 5.99;
+        energetyk.iloscNaMagazynie = 12;
+
+        mleko.wyswietlInformacje();
+        mleko.usunZMagazynu();
+        mleko.wyswietlInformacje();
+        mleko.usunZMagazynu();
+        mleko.wyswietlInformacje();
+        mleko.usunZMagazynu();
+        mleko.wyswietlInformacje();
+    }
+}
