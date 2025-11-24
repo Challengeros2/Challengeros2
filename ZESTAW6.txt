@@ -1,0 +1,149 @@
+interface IKlient {
+    String getDaneIdentyfikacyjne();
+    default void wyslijOferteEmail(){
+        System.out.println("Wyslano domyslna oferte marketingowa na maila klienta");
+    }
+}
+
+interface IProdukt{
+    double pobierzCene();
+    default boolean czyJestWPromocji(){
+        return false;
+    }
+}
+
+class Osoba {
+    protected String imie;
+    protected String nazwisko;
+
+    public Osoba(String imie, String nazwisko){
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+    }
+}
+
+class Klient extends Osoba implements IKlient {
+    public Klient(String imie, String nazwisko){
+        super(imie, nazwisko);
+    }
+
+    @Override
+    public String getDaneIdentyfikacyjne(){
+        return imie + " " + nazwisko;
+    }
+}
+
+class KlientFirmowy extends Klient {
+    private final String NIP;
+    private final String REGON;
+
+    public KlientFirmowy(String imie, String nazwisko, String NIP, String REGON){
+        super(imie, nazwisko);
+        this.NIP = NIP;
+        this.REGON = REGON;
+    }
+
+    @Override
+    public String getDaneIdentyfikacyjne() {
+        return super.getDaneIdentyfikacyjne() + "(NIP: " + NIP + ", REGON: " + REGON + ")";
+    }
+}
+
+class KlientIndywidualny extends Klient {
+    private final String PESEL;
+
+    public KlientIndywidualny(String imie, String nazwisko, String PESEL){
+        super(imie, nazwisko);
+        this.PESEL = PESEL;
+    }
+
+    @Override
+    public String getDaneIdentyfikacyjne() {
+        return super.getDaneIdentyfikacyjne() + "(PESEL: " + PESEL + ")";
+    }
+}
+
+class Produkt implements IProdukt {
+    protected String nazwa;
+    protected double cena;
+
+    public Produkt(String nazwa, double cena) {
+        this.nazwa = nazwa;
+        this.cena = cena;
+    }
+
+    @Override
+    public double pobierzCene() {
+        return cena;
+    }
+
+    class ProduktSpozywczy extends Produkt {
+        public ProduktSpozywczy(String nazwa, double cena) {
+            super(nazwa, cena);
+        }
+    }
+
+    class ProduktPrzemyslowy extends Produkt {
+        public ProduktPrzemyslowy(String nazwa, double cena) {
+            super(nazwa, cena);
+        }
+    }
+
+    abstract class Owoc {
+        public abstract void smak();
+
+        public abstract void umyj();
+
+        public abstract void zjedz();
+    }
+
+    abstract class Warzywo {
+        public abstract void smak();
+
+        public abstract void umyj();
+
+        public abstract void zjedz();
+    }
+
+    class Jablko extends Owoc {
+        @Override
+        public void smak() {
+            System.out.println("Jablko smakuje");
+        }
+
+        @Override
+        public void umyj() {
+            System.out.println("Jablko umyte");
+        }
+
+        @Override
+        public void zjedz() {
+            System.out.println("Jablko zjedzone");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        KlientIndywidualny k1 = new KlientIndywidualny("Jan", "Nowak", "12345678901");
+        KlientFirmowy k2 = new KlientFirmowy("Kacper", "Swierzbin", "123-456-78-90", "123456789");
+
+        System.out.println("---KLIENCI---");
+        System.out.println(k1.getDaneIdentyfikacyjne());
+        k1.wyslijOferteEmail();
+        System.out.println(k2.getDaneIdentyfikacyjne());
+
+        ProduktSpozywczy chleb = new ProduktSpozywczy("Chleb", 4.50);
+        ProduktPrzemyslowy sruba = new ProduktPrzemyslowy("Sruba", 0.25);
+
+        System.out.println("\n--- PRODUKTY ---");
+        System.out.println("Cena chleba: " + chleb.pobierzCene());
+        System.out.println("Czy sruba w promoocji? " + sruba.czyJestWPromocji());
+
+        System.out.println("\n--- OWOCE I WARZYWA ---");
+        Jablko jablko = new Jablko();
+        jablko.umyj();
+        jablko.smak();
+        jablko.zjedz();
+    }
+}
