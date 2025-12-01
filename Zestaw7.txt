@@ -1,0 +1,61 @@
+package Zestaw7;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+
+public record Punkt3D(double x, double y, double z) implements Comparable<Punkt3D> {
+    public double obliczOdleglosc(Punkt3D innyPunkt) {
+        return Math.sqrt(Math.pow(this.x - innyPunkt.x, 2) +
+                Math.pow(this.y - innyPunkt.y, 2) +
+                Math.pow(this.z - innyPunkt.z, 2));
+    }
+
+    private double odlegloscOdZera() {
+        return Math.sqrt(x * x + y * y + z * z);
+    }
+
+    @Override
+    public int compareTo(Punkt3D o) {
+        return Double.compare(this.odlegloscOdZera(), o.odlegloscOdZera());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Punkt3D punkt3D = (Punkt3D) o;
+        double sumaThis = x + y + z;
+        double sumaOther = punkt3D.x + punkt3D.y + punkt3D.z;
+        return Double.compare(sumaOther, sumaThis) == 0;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(x + y + z);
+    }
+}
+
+public record Wektor3D(double sx, double sy, double sz) implements Comparable<Wektor3D> {
+    public Wektor3D(Punkt3D p1, Punkt3D p2) {
+        this(p2.x() - p1.x(), p2.y() - p1.y(), p2.z() - p1.z());
+    }
+    public double modul() {
+        return Math.sqrt(sx * sx + sy * sy + sz * sz);
+    }
+
+    @Override
+    public int compareTo(Wektor3D o){
+        return Double.compare(o.modul(), this.modul());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Wektor3D wektor3D = (Wektor3D) o;
+        double iloczynSkalarny = (this.sx * wektor3D.sx) + (this.sy * wektor3D.sy) + (this.sz * wektor3D.sz);
+        return Math.abs(iloczynSkalarny) < 0.000001;
+    }
+}
