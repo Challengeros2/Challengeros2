@@ -1,0 +1,161 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+public class Node
+{
+    public int Value;
+    public Node Left;
+    public Node Right;
+
+    public int X;
+    public int Y;
+
+    public Node(int value)
+    {
+        Value = value;
+        Left = null;
+        Right = null;
+    }
+}
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BST
+{
+    public class BST
+    {
+        public Node Root;
+
+        public void Insert(int value)
+        {
+            Root = InsertRec(Root, value);
+        }
+
+        private Node InsertRec(Node root, int value)
+        {
+            if (root == null)
+                return new Node(value);
+
+            if (value < root.Value)
+                root.Left = InsertRec(root.Left, value);
+            else if (value > root.Value)
+                root.Right = InsertRec(root.Right, value);
+
+            return root;
+        }
+    }
+}
+
+
+namespace BST;
+
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Xml.Linq;
+
+public partial class Form1 : Form
+{
+    BST tree = new BST();
+
+    public Form1()
+    {
+        InitializeComponent();
+        panelDraw.Paint += PanelDraw_Paint;
+    }
+
+    private void btnAdd_Click(object sender, EventArgs e)
+    {
+        if (int.TryParse(txtValue.Text, out int value))
+        {
+            tree.Insert(value);
+            lblInfo.Text = $"Dodano: {value}";
+            panelDraw.Refresh();
+        }
+        else
+        {
+            lblInfo.Text = "Wprowadź poprawną liczbę!";
+        }
+    }
+
+    private void btnClear_Click(object sender, EventArgs e)
+    {
+        tree = new BST();
+        panelDraw.Refresh();
+    }
+
+    private void PanelDraw_Paint(object sender, PaintEventArgs e)
+    {
+        if (tree.Root != null)
+        {
+            DrawNode(e.Graphics, tree.Root, panelDraw.Width / 2, 30, panelDraw.Width / 4);
+        }
+    }
+
+    private void DrawNode(Graphics g, Node node, int x, int y, int offset)
+    {
+        int radius = 20;
+
+        node.X = x;
+        node.Y = y;
+
+        // Linie do dzieci
+        if (node.Left != null)
+        {
+            g.DrawLine(Pens.Black, x, y, x - offset, y + 50);
+            DrawNode(g, node.Left, x - offset, y + 50, offset / 2);
+        }
+
+        if (node.Right != null)
+        {
+            g.DrawLine(Pens.Black, x, y, x + offset, y + 50);
+            DrawNode(g, node.Right, x + offset, y + 50, offset / 2);
+        }
+
+        // Rysowanie węzła
+        g.FillEllipse(Brushes.LightBlue, x - radius, y - radius, 2 * radius, 2 * radius);
+        g.DrawEllipse(Pens.Black, x - radius, y - radius, 2 * radius, 2 * radius);
+
+        // Wartość
+        var sf = new StringFormat()
+        {
+            Alignment = StringAlignment.Center,
+            LineAlignment = StringAlignment.Center
+        };
+        g.DrawString(node.Value.ToString(), this.Font, Brushes.Black, x, y, sf);
+    }
+
+    private void txtValue_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void lblInfo_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void panelDraw_Paint(object sender, PaintEventArgs e)
+    {
+        if (tree.Root != null)
+        {
+            DrawNode(e.Graphics, tree.Root, panelDraw.Width / 2, 30, panelDraw.Width / 4);
+        }
+    }
+
+    private void Form1_Load(object sender, EventArgs e)
+    {
+
+    }
+}
