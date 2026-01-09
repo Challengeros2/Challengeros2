@@ -1,0 +1,228 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Algorytm_Kruskala
+{
+    internal class Graf
+    {
+        public List<Wezel> nodes;
+        public List<Krawedz> krawedzs;
+
+        public Graf(Krawedz k)
+        {
+            krawedzs = new List<Krawedz>() { k };
+
+            nodes = new List<Wezel>(){ k.poczatek, k.koniec};
+        }
+
+        public void Add(Krawedz k)
+        {
+            krawedzs.Add(k);
+
+            if(!nodes.Contains(k.poczatek)) nodes.Add(k.poczatek);
+            if(!nodes.Contains(k.koniec)) nodes.Add(k.koniec);
+        }
+
+        public void Join(Graf g)
+        {
+            this.krawedzs.AddRange(g.krawedzs);
+
+            foreach(Wezel w in g.nodes)
+            {
+                if(!this.nodes.Contains(w)) this.nodes.Add(w);
+            }
+        }
+
+        public int Chceck(Krawedz k)
+        {
+            int v = 2;
+
+            if (nodes.Contains(k.poczatek)) v--;
+            if (nodes.Contains(k.koniec)) v--;
+
+            return v;
+        }
+    }
+}
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Algorytm_Kruskala
+{
+    internal class Krawedz
+    {
+        public Wezel poczatek;
+        public Wezel koniec;
+        public int waga;
+
+        public Krawedz(Wezel poczatek, Wezel koniec)
+        {
+            this.poczatek = poczatek;
+            this.koniec = koniec;
+            waga = 1;
+        }
+
+        public Krawedz(Wezel poczatek, Wezel koniec, int wartosc)
+        {
+            this.poczatek = poczatek;
+            this.koniec = koniec;
+            this.waga = wartosc;
+        }
+    }
+}
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Algorytm_Kruskala
+{
+    internal class Wezel
+    {
+        public int value;
+
+        public Wezel(int value)
+        {
+            this.value = value;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class Form1 : Form
+{
+    class Edge
+    {
+        public int A, B, W;
+        public override string ToString()
+        {
+            return A + " - " + B + " (waga " + W + ")";
+        }
+    }
+
+    TextBox textBoxA = new TextBox();
+    TextBox textBoxB = new TextBox();
+    TextBox textBoxW = new TextBox();
+
+    ListBox listBoxEdges = new ListBox();
+    ListBox listBoxResult = new ListBox();
+
+    Button buttonAdd = new Button();
+    Button buttonRun = new Button();
+
+    List<Edge> edges = new List<Edge>();
+
+    public Form1()
+    {
+        Text = "Kruskal - DZIAŁA";
+        Size = new Size(550, 350);
+
+        Label la = new Label() { Text = "A", Left = 10, Top = 15 };
+        Label lb = new Label() { Text = "B", Left = 10, Top = 45 };
+        Label lw = new Label() { Text = "Waga", Left = 10, Top = 75 };
+
+        textBoxA.SetBounds(60, 10, 80, 20);
+        textBoxB.SetBounds(60, 40, 80, 20);
+        textBoxW.SetBounds(60, 70, 80, 20);
+
+        buttonAdd.Text = "Dodaj";
+        buttonAdd.SetBounds(10, 105, 130, 30);
+        buttonAdd.Click += buttonAdd_Click;
+
+        buttonRun.Text = "Kruskal";
+        buttonRun.SetBounds(10, 145, 130, 30);
+        buttonRun.Click += buttonRun_Click;
+
+        listBoxEdges.SetBounds(170, 10, 350, 130);
+        listBoxResult.SetBounds(170, 160, 350, 130);
+
+        Controls.AddRange(new Control[] {
+            la, lb, lw,
+            textBoxA, textBoxB, textBoxW,
+            buttonAdd, buttonRun,
+            listBoxEdges, listBoxResult
+        });
+    }
+
+    void buttonAdd_Click(object sender, EventArgs e)
+    {
+        int a, b, w;
+        if (int.TryParse(textBoxA.Text, out a) &&
+            int.TryParse(textBoxB.Text, out b) &&
+            int.TryParse(textBoxW.Text, out w))
+        {
+            Edge edge = new Edge { A = a, B = b, W = w };
+            edges.Add(edge);
+            listBoxEdges.Items.Add(edge);
+        }
+        else
+        {
+            MessageBox.Show("Błędne dane!");
+        }
+    }
+
+    void buttonRun_Click(object sender, EventArgs e)
+    {
+        listBoxResult.Items.Clear();
+        edges.Sort((x, y) => x.W.CompareTo(y.W));
+
+        Dictionary<int, int> parent = new Dictionary<int, int>();
+        foreach (var edge in edges)   // <-- ZMIANA NA edge
+        {
+            if (!parent.ContainsKey(edge.A)) parent[edge.A] = edge.A;
+            if (!parent.ContainsKey(edge.B)) parent[edge.B] = edge.B;
+        }
+
+        int Find(int x)
+        {
+            if (parent[x] != x)
+                parent[x] = Find(parent[x]);
+            return parent[x];
+        }
+
+        int sum = 0;
+        foreach (var edge in edges)   // <-- ZMIANA NA edge
+        {
+            if (Find(edge.A) != Find(edge.B))
+            {
+                parent[Find(edge.A)] = Find(edge.B);
+                listBoxResult.Items.Add(edge);
+                sum += edge.W;
+            }
+        }
+
+        listBoxResult.Items.Add("Suma wag = " + sum);
+    }
+}
