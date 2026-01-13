@@ -1,0 +1,16 @@
+D:\181145\Algorytm Kruskala\bin\Debug\net8.0-windows\Algorytm Kruskala.exe
+D:\181145\Algorytm Kruskala\bin\Debug\net8.0-windows\Algorytm Kruskala.deps.json
+D:\181145\Algorytm Kruskala\bin\Debug\net8.0-windows\Algorytm Kruskala.runtimeconfig.json
+D:\181145\Algorytm Kruskala\bin\Debug\net8.0-windows\Algorytm Kruskala.dll
+D:\181145\Algorytm Kruskala\bin\Debug\net8.0-windows\Algorytm Kruskala.pdb
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\Algorytm_Kruskala.Form1.resources
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\Algorytm Kruskala.csproj.GenerateResource.cache
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\Algorytm Kruskala.GeneratedMSBuildEditorConfig.editorconfig
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\Algorytm Kruskala.AssemblyInfoInputs.cache
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\Algorytm Kruskala.AssemblyInfo.cs
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\Algorytm Kruskala.csproj.CoreCompileInputs.cache
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\Algorytm Kruskala.dll
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\refint\Algorytm Kruskala.dll
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\Algorytm Kruskala.pdb
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\Algorytm Kruskala.genruntimeconfig.cache
+D:\181145\Algorytm Kruskala\obj\Debug\net8.0-windows\ref\Algorytm Kruskala.dll
